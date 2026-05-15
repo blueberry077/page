@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+.title-banner {
+	padding: 5px;
+	background: linear-gradient(90deg,rgba(59, 118, 255, 1) 0%, rgba(201, 214, 255, 1) 100%);
+	color: white;
+}
+.title-banner h1 {
+	margin: 0;
+}
+table {
+	padding-left: 20px;
+}
+td {
+	font-family: Courier, "Courier New", monospace;
+	font-size: 14px;
+	min-width: 60px;
+}
+</style>
+<head>
+	<title>WSN Home Page</title>
+</head>
+<body>
+	<div class="title-banner">
+		<h1>WSN - Safety Net for Developers</h1>
+	</div>
+	<h2>What is WSN?</h2>
+	<p>
+		<b>WSN</b> is a lightweight, local-first background utility that watches your project directories and captures snapshots of your work as you write it.
+		It acts as an invisible safety net, ensuring you never lose a flow-state breakthrough, a broken regex fix, or an accidental deletion again.<br>
+		Even if you forgot to commit to git.
+	</p>
+	<h3>Get a WSN v0.1 License</h3>
+	<p><b>WSN is still in early development</b> and I need your help funding and understanding how to turn this utility into a useful tool:<br>
+	<a href="#">Get WSN v0.1 for $5</a><br>
+	Buy WSN if you support the idea of a local, easy-to-use safety net for your projects.
+	</p>
+	<h4 style="margin-bottom: 0;">What you'll get:</h4>
+	<ul style="margin-top: 5px;">
+		<li>Customer support directly from the developer.</li>
+		<li>Early access to updates.</li>
+		<li>A lifetime WSN license valid for all future versions.</li>
+	</ul>
+	<h3>Why use WSN?</h3>
+	<ul>
+		<li><b>Very simple to use:</b> No <code>git init</code>, no manual staging, no commit messages required. No 1-hour tutorial to use it.
+		</li>
+		<li><b>Granular Timeline:</b> Unlike git, WSN tracks your progress at anytime. You can roll back any file or folder to its exact state from 10 minutes, 10 hours or even weeks ago.
+		</li>
+		<li><b>Local & Private:</b> Your code stays on your machine inside a <b>.wsn</b> folder stored at the root user directory.
+		</li>
+		<li><b>Noise Filtering:</b> You can ignore files, and folders using a standard <b>.wsnignore</b> text file. That updates on save.
+		</li>
+	</ul>
+	<code>
+	<p style="color: dimgray;" >
+		<i>.wsnignore must be place at the root directory of your project.</i>
+	</p>
+	</code>
+	<h3>How it Works?</h3>
+	<ol>
+		<li><b>Watch:</b> WSN runs in the background to monitor your projects for changes.
+		</li>
+		<li><b>Manage:</b> Use the <b>WSNCmd</b> command-line tool to recover your entire file tree or a single file at any specific time.<br>
+		You can also annotate milestones and what the history of your project.
+		</li>
+	</ol>
+	<h3>How to use?</h3>
+	<p>These are the commands you can use with WSNCmd:</p>
+	<table>
+		<tr>
+			<td><b>Register:</b></td>
+			<td>wsncmd</td>
+			<td>--register</td>
+			<td>[ProjectPath]</td>
+		</tr>
+		<tr>
+			<td><b>Unregister:</b></td>
+			<td>wsncmd</td>
+			<td>--unregister</td>
+			<td>[ProjectPath]</td>
+		</tr>
+		<tr>
+			<td><b>Restore:</b></td>
+			<td>wsncmd</td>
+			<td>--restore</td>
+			<td>[ProjectPath]</td>
+			<td>[UnixTimestamp]</td>
+			<td>[FileOrFolder]</td>
+		</tr>
+		<tr>
+			<td><b>Annotate:</b></td>
+			<td>wsncmd</td>
+			<td>--annotate</td>
+			<td>[ProjectPath]</td>
+			<td>[Message]</td>
+			<td>[UnixTimestamp]</td>
+		</tr>
+		<tr>
+			<td><b>Unannotate:</b></td>
+			<td>wsncmd</td>
+			<td>--unannotate</td>
+			<td>[ProjectPath]</td>
+			<td>[OldMessage]</td>
+		</tr>
+	</table>
+	<code>
+	<p style="color: gray;">
+		<i>[ProjectPath] is the root directory of your project.</i><br>
+		<i>[FileOrFolder] ends with "/" if it is a folder. It accepts subfolders.</i><br>
+		<i>[UnixTimestamp] is a Unix Timestamp in seconds.</i><br>
+	</p>
+	</code>
+</body>
+<hr>
+<footer>
+	<p>Copyright (c) 2026 Marc-Daniel DALEBA</p>
+</footer>
+</html>
