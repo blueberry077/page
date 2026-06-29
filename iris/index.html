@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Terminal Protocol v1.0</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: "Times New Roman", Times, serif;
+            margin: 40px auto;
+            max-width: 850px;
+            padding: 0 20px;
+            line-height: 1.4;
+            font-size: 16px;
+        }
+
+        /* Classic Web 1.0 Hyperlinks */
+        a {
+            color: #0000ee;
+            text-decoration: underline;
+        }
+        a:visited {
+            color: #551a8b;
+        }
+
+        /* Header Setup */
+        .header-container {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .main-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .main-title img {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #aaaaaa;
+            margin: 15px 0;
+        }
+
+        /* Clean Section Directories */
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 6px;
+        }
+
+        .directory-links {
+            margin-bottom: 15px;
+        }
+
+        .directory-links a {
+            white-space: nowrap;
+        }
+
+        .meta-row {
+            margin-bottom: 6px;
+        }
+
+        .bold-prefix {
+            font-weight: bold;
+        }
+
+        /* Tidier code blocks */
+        pre {
+            font-family: monospace;
+            font-size: 13px;
+            background-color: #fafafa;
+            padding: 12px;
+            border: 1px solid #dddddd;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Section -->
+<div class="header-container">
+    <span class="main-title">
+        <img src="favicon.png" width="32" height="32" alt="Iris Logo" />Iris Terminal Protocol
+    </span>
+    <br>
+    <p style="margin: 4px 0 0 0;"><i>Marc-Daniel's low-level retro multimedia application framework.</i></p>
+</div>
+<hr>
+
+<!-- Main Content Area with Screenshot Sidebar -->
+<table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+    <tr style="vertical-align: top;">
+        <!-- Left Side: Introductory Description Text -->
+        <td style="padding-right: 25px;">
+            <div class="meta-row">
+                The <b>Iris Protocol</b> is a lightweight convention that allows terminal applications to draw graphics and play sounds in real-time in a retro way. It was built to let developers write small prototypes and games without needing any external libraries to link—requiring only Windows environments and standard compilation runtimes. Contrary to other terminal protocols, Iris focuses purely on real-time software like video games, with the addition of PSG and 8-bit sample audio.
+            </div>
+            <div class="meta-row" style="margin-top: 15px;">
+                By capturing standard input-output pipes, the environment creates an isolated multimedia rendering viewport completely asynchronous to standard text-buffer processing arrays.
+            </div>
+            <div class="meta-row" style="margin-top: 15px;">
+                Download the latest version of the Iris SDK <a href="#">here</a> for Windows.
+            </div>
+        </td>
+
+        <!-- Right Side: Bounded Screenshot Figure Block -->
+        <td style="width: 260px; min-width: 260px;">
+            <div style="border: 1px solid #aaaaaa; background-color: #f9f9f9; padding: 5px; width: 250px; text-align: center;">
+                <a href="screenshot.png"><img src="screenshot.png" alt="Iris Terminal Window Screenshot" style="border: 1px solid #cccccc; width: 238px; height: auto; display: block; margin: 0 auto 5px auto;"></a>
+                <div style="font-size: 11px; font-family: 'Times New Roman', Times, serif; line-height: 1.2; text-align: left; padding: 0 4px; color: #333333;">
+                    Figure 1.1: The host <tt>iris.exe</tt> context window rendering the real-time "Bouncing Puppies" example.
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<hr>
+
+<!-- stdout Section -->
+<div class="section-title">Standard Output (`stdout`) Graphics Commands</div>
+<div class="directory-links">
+    <a href="#">\x1B[?] Handshake</a> &middot; 
+    <a href="#">\x1B[x] Clear Screen</a> &middot; 
+    <a href="#">\x1B[v] Echo Status</a> &middot; 
+    <a href="#">\x1B[wWidth;Height] Resize Canvas</a> &middot; 
+    <a href="#">\x1B[TTitle] Window Title</a> &middot; 
+    <a href="#">\x1B[fFontName;Size] Select Font</a> &middot; 
+    <a href="#">\x1B[cRRGGBBAA] Foreground Color</a> &middot; 
+    <a href="#">\x1B[bRRGGBBAA] Background Color</a> &middot; 
+    <a href="#">\x1B[BWidth;Height;Data] Draw Bitmap</a> &middot; 
+    <a href="move.html">\x1B[pX;Y] Move Cursor</a> &middot; 
+    <a href="#">\x1B[lX;Y;RGBA] Draw Line</a> &middot; 
+    <a href="#">\x1B[rX;Y;W;H;RGBA] Rectangle</a> &middot; 
+    <a href="#">\x1B[eX;Y;RX;RY;Clr] Ellipse Geometry</a>
+</div>
+
+<!-- stderr Section -->
+<div class="section-title">Standard Error (`stderr`) Audio Commands</div>
+<div class="directory-links">
+    <a href="#">\x1B[y] Enable Audio</a> &middot; 
+    <a href="#">\x1B[n] Disable Audio</a> &middot; 
+    <a href="#">\x1B[iSlot;Start;End;Freq;Size;Data] Store Sample</a> &middot; 
+    <a href="#">\x1B[cChannel;Type;Freq;Vol;P1;P2] Play Sound</a> &middot; 
+    <a href="#">\x1B[rChannel] Stop Channel</a> &middot; 
+    <a href="#">\x1B[fChannel;Freq] Live Frequency</a> &middot; 
+    <a href="#">\x1B[vChannel;Vol] Channel Volume</a> &middot; 
+    <a href="#">\x1B[mMaster] Master Mixer Volume</a>
+    <br>
+    <small><i>Note: The system layout emulates exactly 8 simultaneous audio hardware channels.</i></small>
+</div>
+
+<hr>
+
+<!-- Example Snippet -->
+<div class="section-title">Example C Program Snippet</div>
+<pre>
+printf("\x1B[TBouncing Puppies]");
+printf("\x1B[w640;480]");
+for (;running;) {
+    printf("\x1B[x]");
+    if (mute) {
+        printf("\x1B[fArial;12]");
+        printf("\x1B[c0xFFFFFFFF]");
+        printf("\x1B[p0;0]Puppies are mute");
+    }
+    printf("\x1B[p0;200]");
+    printf("\x1B[c0xFF505050]");
+    printf("The meaning of bouncing puppies is found in their simple joy:\n");
+    printf("a reminder that life is not only about progress, but about wonder.\n");
+}</pre>
+
+<hr>
+
+<!-- Document Meta Directory -->
+<div class="meta-row">
+    <span class="bold-prefix">Links & Updates:</span> <a href="#">Tutorial</a> -- <a href="#">Bug Tracker</a> -- <a href="#">Changelog Spec History</a> -- <a href="#">License Conditions</a>
+</div>
+
+<hr>
+<div class="top-banner">
+    <small>This page was last modified on June 29, 2026.</small>
+</div>
+
+</body>
+</html>
