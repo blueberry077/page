@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weighted Image Reconstruction</title>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --font-body: 'Times New Roman', Times, serif;
+            --text-color: #111;
+            --border-color: #000;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-color);
+            background-color: #fcfcfc;
+            line-height: 1.5;
+            font-size: 10pt;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+        }
+
+        h1.paper-title {
+            font-size: 18pt;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .author-block {
+            font-size: 11pt;
+        }
+
+        .author-name {
+            font-weight: bold;
+        }
+
+        .last-updated {
+            font-size: 8.5pt;
+            color: #555;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        h2.section-title {
+            font-size: 11pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2px;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            text-align: justify;
+            margin: 0.6rem 0;
+        }
+
+        a {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: #444;
+        }
+
+        .figure-group {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .figure-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 0.5rem;
+        }
+
+        .figure-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .figure-item img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        .figure-subcaption {
+            font-size: 8.5pt;
+            margin-top: 4px;
+            color: #333;
+        }
+
+        .figure-caption {
+            font-size: 9pt;
+            margin-top: 0.75rem;
+            color: #444;
+            font-style: italic;
+        }
+
+        .equation {
+            margin: 0.8rem 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="paper-title">Weighted Image Reconstruction</h1>
+        <div class="author-block">
+            <span class="author-name">By Marc-Daniel DALEBA</span>
+        </div>
+        <div class="last-updated">
+            Last updated: September 2026
+        </div>
+    </header>
+
+    <main>
+        <h2 class="section-title">1. Introduction</h2>
+        <p>In this article, we will see how we can reconstruct an image using Accumulative Weighted Interpolation.<br>
+        The full program is available here: <a href="https://github.com/blueberry077/Weighted-Image-Reconstruction">https://github.com/blueberry077/Weighted-Image-Reconstruction</a></p>
+
+        <!-- Academic Figure Layout -->
+        <div class="figure-group">
+            <div class="figure-grid">
+                <div class="figure-item">
+                    <img src="screenshots/100.png" alt="Image reconstruction with 100 initial points">
+                    <div class="figure-subcaption">(a) 100 initial points</div>
+                </div>
+                <div class="figure-item">
+                    <img src="screenshots/1000.png" alt="Image reconstruction with 1000 initial points">
+                    <div class="figure-subcaption">(b) 1000 initial points</div>
+                </div>
+                <div class="figure-item">
+                    <img src="screenshots/10000.png" alt="Image reconstruction with 10000 initial points">
+                    <div class="figure-subcaption">(c) 10000 initial points</div>
+                </div>
+            </div>
+            <div class="figure-caption">
+                Reconstructed using exponent \( p = 3 \). A higher power parameter was chosen because lower values caused the predominant green background in the test image to bleed excessively across distant pixels.
+            </div>
+        </div>
+
+        <h2 class="section-title">2. Interpolation Formulation</h2>
+        <p>Given three points \( A \), \( B \) and \( C \), we can calculate the distance between each point from \( C \) using these relations:</p>
+        
+        <div class="equation">\[ d_{A}=\left\| A-C \right\| \]</div>
+        <div class="equation">\[ d_{B}=\left\| B-C \right\| \]</div>
+
+        <p>If we normalize the distances and invert them to get the weights:</p>
+        
+        <div class="equation">\[ w_{A} = \frac{d_{B}}{d_{A}+d_{B}} \]</div>
+        <div class="equation">\[ w_{B} = \frac{d_{A}}{d_{A}+d_{B}} \]</div>
+
+        <p>Then we can calculate \( P \) the weighted attributes shared from \( A \) and \( B \) to \( C \):</p>
+        
+        <div class="equation">\[ P=w_{A}A+w_{B}B \]</div>
+
+        <p>Now say we have \( n \) points. We have:</p>
+        
+        <div class="equation">\[ P_{0},P_{1},...,P_{n} \]</div>
+
+        <p>and a reference point \( C \), we can calculate every distance:</p>
+
+        <div class="equation">\[ d_{i}=\left\| P_{i}-C \right\| \]</div>
+
+        <p>Then use the inverted distances as weights:</p>
+
+        <div class="equation">\[ w_{i}=\frac{1/d_{i}^{p}}{\sum_{j=0}^{n}1/d_{j}^{p}} \text{ with }p\text{ as the exponent to control the influence.} \]</div>
+
+        <p>Which gives us the interpolated point \( P \)</p>
+
+        <!-- Boxed Final Formula -->
+        <div class="equation">
+            \[ \bbox[8px, border: 1px solid black]{ P=\sum_{i=0}^{n}w_{i}\cdot P_{i} } \]
+        </div>
+
+        <p>Here, \( P \) isn't our point \( C \), it is the weighted point resulting from the interpolation.</p>
+
+        <h2 class="section-title">3. Notes</h2>
+        <p>Apparently this exists as <a href="https://en.wikipedia.org/wiki/Inverse_distance_weighting" target="_blank" rel="noopener">Inverse Distance Weighting (IDW)</a>. If you see this feel free to do whatever you want with this information.<br>
+        I had fun learning LaTeX and figuring out a solution for a small prototype.</p>
+    </main>
+
+</body>
+</html>
