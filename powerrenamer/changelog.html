@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+.token-table {
+	padding-left: 20px;
+	border-spacing:0;
+}
+.token-table td {
+	padding-right: 20px;
+}
+</style>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,8 +59,14 @@
 
         <font face="Verdana, Arial, sans-serif" size="2">
           <ul>
-            <li><b>Core Engine &amp; Speed:</b> Updated parsing algorithm for speed and safety.</li>
-            <li><b>Experience:</b> Added <code>$case[type]$</code> token for batch case modification.</li>
+            <li><b>Core Engine &amp; Speed:</b> Updated parsing algorithm with a token-based parser.</li>
+            <li><b>Experience:</b> Added <code>$case[type]$</code> token for batch case modification:
+				<table class="token-table">
+				<tr><td><code>$case[upper]$</code></td><td>Makes the following text uppercase.</td></tr>
+				<tr><td><code>$case[lower]$</code></td><td>Makes the following text lowercase.</td></tr>
+				<tr><td><code>$case[normal]$</code></td><td>Gives the following text its original casing.</td></tr>
+				</table>
+			</li>
           </ul>
         </font>
 
@@ -78,7 +93,7 @@
 
         <font face="Verdana, Arial, sans-serif" size="2">
           <ul>
-            <li><b>Interface:</b> Made main window responsive on resize.</li>
+            <li><b>Interface:</b> Made main window resizable and responsive.</li>
           </ul>
         </font>
 
