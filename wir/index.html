@@ -163,43 +163,44 @@
         </div>
 
         <h2 class="section-title">2. Interpolation Formulation</h2>
-        <p>Given three points \( A \), \( B \) and \( C \), we can calculate the distance between each point from \( C \) using these relations:</p>
+		<p>Let \( A \), \( B \) and \( C \) be points in an Euclidean plane and each with a known attribute, \( F(A) \) and \( F(B) \). Let's calculate the unknown attribute \( F(C) \).</p>
+		<p>In order to calculate \( \mathcal{P}(C) \), we need the distance \( d_A \) and \( d_B \), respectively the length of \( \left[ AC \right] \) and \( \left[ BC \right] \)</p>
         
-        <div class="equation">\[ d_{A}=\left\| A-C \right\| \]</div>
-        <div class="equation">\[ d_{B}=\left\| B-C \right\| \]</div>
+        <div class="equation">\[ d_A=\sqrt{(x_A-x_C)^2+(y_A-y_C)^2} \quad \text{and} \quad d_B=\sqrt{(x_B-x_C)^2+(y_B-y_C)^2} \]</div>
 
-        <p>If we normalize the distances and invert them to get the weights:</p>
+        <p>These distances allow us to calculate the weights \( w_A \) and \( w_B \) that will influence \( F(C) \).</p>
+		<p>To give more influence to the closest point, we assign weights inversely proportional to the distances. We then normalize them so that their sum equals 1:</p>
         
-        <div class="equation">\[ w_{A} = \frac{d_{B}}{d_{A}+d_{B}} \]</div>
-        <div class="equation">\[ w_{B} = \frac{d_{A}}{d_{A}+d_{B}} \]</div>
+		<div class="equation">\[ \bbox[8px, border: 1px solid black]{ w_{A} = \frac{d_B}{d_A+d_B}} \quad \text{and} \quad \bbox[8px, border: 1px solid black]{ w_{B} = \frac{d_A}{d_A+d_B}} \]</div>
 
-        <p>Then we can calculate \( P \) the weighted attributes shared from \( A \) and \( B \) to \( C \):</p>
+		<p>If \( d_A \gt d_B \) then \( w_A \lt w_B \)</p>
+		<p>If \( d_A \lt d_B \) then \( w_A \gt w_B \)</p>
+
+        <p>Then we can calculate \( F(C) \) the weighted average of the attributes at \( A \) and \( B \) to \( C \):</p>
         
-        <div class="equation">\[ P=w_{A}A+w_{B}B \]</div>
+        <div class="equation">\[ \bbox[8px, border: 1px solid black]{ F(C)=w_{A}F(A)+w_{B}F(B) } \]</div>
 
-        <p>Now say we have \( n \) points. We have:</p>
-        
-        <div class="equation">\[ P_{0},P_{1},...,P_{n} \]</div>
+		<h2 class="section-title">3. Generalization to Multiple Points</h2>
+		
+        <p>Now, in an Euclidean plane, say we have \( n \) points: \( P_0,P_1,P_2,...,P_n \) and attributes \( F_0,F_1,F_2,...,F_n \) and a point \( C \), to which we want to calculate the attribute \( F(C) \).</p>
+		<p>For each point \( P_i \), we calculate the distance \( d_i \) to \( C \):</p>
+		
+        <div class="equation">\[ d_i=\sqrt{(x_i-x_C)^2+(y_i-y_C)^2} \]</div>
 
-        <p>and a reference point \( C \), we can calculate every distance:</p>
+        <p>Then we calculate the weight \( w_i \) of the point \( P_i \).</p>
+		<p>Since we don't have directly the "other" distance like in section 2, the inverse of the distance, ensuring that closer points have greater influence.</p>
 
-        <div class="equation">\[ d_{i}=\left\| P_{i}-C \right\| \]</div>
+        <div class="equation">\[ w_{i}=\frac{1/d_i^p}{\sum_{j=0}^{n}1/d_j^p} \quad \text{ with }p\text{ as the exponent to control the influence.} \]</div>
 
-        <p>Then use the inverted distances as weights:</p>
-
-        <div class="equation">\[ w_{i}=\frac{1/d_{i}^{p}}{\sum_{j=0}^{n}1/d_{j}^{p}} \text{ with }p\text{ as the exponent to control the influence.} \]</div>
-
-        <p>Which gives us the interpolated point \( P \)</p>
+        <p>The interpolated attribute is therefore \( F(C) \)</p>
 
         <!-- Boxed Final Formula -->
         <div class="equation">
-            \[ \bbox[8px, border: 1px solid black]{ P=\sum_{i=0}^{n}w_{i}\cdot P_{i} } \]
+            \[ \bbox[8px, border: 1px solid black]{ F(C)=\sum_{i=0}^{n}w_{i}\cdot F_i } \]
         </div>
 
-        <p>Here, \( P \) isn't our point \( C \), it is the weighted point resulting from the interpolation.</p>
-
-        <h2 class="section-title">3. Notes</h2>
-        <p>Apparently this exists as <a href="https://en.wikipedia.org/wiki/Inverse_distance_weighting" target="_blank" rel="noopener">Inverse Distance Weighting (IDW)</a>. If you see this feel free to do whatever you want with this information.<br>
+        <h2 class="section-title">4. Notes</h2>
+        <p>Apparently this exists as <a href="https://en.wikipedia.org/wiki/Inverse_distance_weighting" target="_blank" rel="noopener">Inverse Distance Weighting (IDW)</a>.<br>
         I had fun learning LaTeX and figuring out a solution for a small prototype.</p>
     </main>
 
